@@ -1,0 +1,56 @@
+<div class="app-wrapper">
+
+  <nav class="navbar">
+    <div class="navbar-content">
+      <span class="navbar-logo">CFG Analyzer</span>
+      <span class="navbar-sub">Gramáticas Libres de Contexto</span>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="layout">
+
+      <div class="panel-izq">
+        <app-entrada (resultadoEmitido)="onResultado($event)" />
+      </div>
+
+      <div class="panel-der" *ngIf="resultado; else sinResultado">
+
+        <div class="tabs">
+          <button class="tab" [class.activo]="tabActivo === 'derivacion'" (click)="setTab('derivacion')">
+            ⊢ Derivación
+          </button>
+          <button class="tab" [class.activo]="tabActivo === 'arbol'" (click)="setTab('arbol')">
+            ⬡ Árbol
+          </button>
+        </div>
+
+        <div class="tab-contenido">
+          <div [style.display]="tabActivo === 'derivacion' ? 'flex' : 'none'" style="flex-direction:column;height:100%">
+            <app-derivacion [resultado]="resultado" />
+          </div>
+          <div [style.display]="tabActivo === 'arbol' ? 'flex' : 'none'" style="flex-direction:column;height:100%">
+            <app-arbol [arbol]="resultado.arbol" />
+          </div>
+        </div>
+
+      </div>
+
+      <ng-template #sinResultado>
+        <div class="panel-der panel-vacio">
+          <div class="vacio-content">
+            <span class="vacio-icono">⬡</span>
+            <h3>Ingresa una expresión</h3>
+            <p>Escribe o construye una expresión booleana en el panel izquierdo y presiona Analizar.</p>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>APE 08 — Teoría de Autómatas y Computabilidad Avanzada</p>
+  </footer>
+
+</div>

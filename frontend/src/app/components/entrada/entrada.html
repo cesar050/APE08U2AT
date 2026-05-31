@@ -1,0 +1,93 @@
+<div class="entrada-container">
+
+  <div class="header">
+    <h1>Analizador de Expresiones Booleanas</h1>
+    <p>Construye tu expresión usando los botones o escríbela directamente</p>
+  </div>
+
+  <div class="card">
+
+    <div class="seccion">
+      <label class="label">Operadores</label>
+      <div class="botones-operadores">
+        <button class="btn-op not" (click)="insertarSimbolo('~')">~ <span>NOT</span></button>
+        <button class="btn-op and" (click)="insertarSimbolo('&')">&amp; <span>AND</span></button>
+        <button class="btn-op or"  (click)="insertarSimbolo('|')">| <span>OR</span></button>
+        <button class="btn-op par" (click)="insertarSimbolo('(')">(  <span>Abrir</span></button>
+        <button class="btn-op par" (click)="insertarSimbolo(')')">)  <span>Cerrar</span></button>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <label class="label">Variables</label>
+      <div class="botones-vars">
+        <button class="btn-var" (click)="insertarSimbolo('A')">A</button>
+        <button class="btn-var" (click)="insertarSimbolo('B')">B</button>
+        <button class="btn-var" (click)="insertarSimbolo('C')">C</button>
+        <button class="btn-var" (click)="insertarSimbolo('D')">D</button>
+        <button class="btn-var" (click)="insertarSimbolo('E')">E</button>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <label class="label">Expresión</label>
+      <div class="input-row">
+        <input
+          type="text"
+          [(ngModel)]="expresion"
+          (ngModelChange)="onInput()"
+          placeholder="Ej: A & ~ B | C"
+          class="input-expresion"
+          [class.input-error]="error"
+          (keyup.enter)="analizar()"
+        />
+        <button class="btn-limpiar" (click)="limpiar()">✕</button>
+      </div>
+      <div class="error-msg" *ngIf="error">⚠ {{ error }}</div>
+    </div>
+
+    <div class="seccion" *ngIf="tablaLexica.length > 0">
+      <label class="label">Análisis léxico</label>
+      <div class="tabla-lexica">
+        <div class="tabla-header">
+          <span>Posición</span>
+          <span>Token</span>
+          <span>Tipo</span>
+          <span>Descripción</span>
+        </div>
+        <div
+          class="tabla-fila"
+          *ngFor="let token of tablaLexica"
+          [class]="'tabla-fila ' + TIPOS_COLOR[token.tipo]"
+        >
+          <span>{{ token.posicion }}</span>
+          <span class="token-valor">{{ token.valor }}</span>
+          <span class="token-tipo">{{ token.tipo }}</span>
+          <span>{{ TIPOS_DESCRIPCION[token.tipo] }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <label class="label">Ejemplos</label>
+      <div class="ejemplos">
+        <button
+          class="btn-ejemplo"
+          *ngFor="let ej of ejemplos"
+          (click)="cargarEjemplo(ej)"
+        >{{ ej }}</button>
+      </div>
+    </div>
+
+    <button
+      class="btn-analizar"
+      (click)="analizar()"
+      [disabled]="cargando || !!error"
+    >
+      <span *ngIf="!cargando">Analizar expresión</span>
+      <span *ngIf="cargando">Analizando...</span>
+    </button>
+
+  </div>
+
+</div>

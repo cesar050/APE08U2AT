@@ -1,0 +1,215 @@
+.entrada-container {
+  padding: 1rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.entrada-container::-webkit-scrollbar { width: 4px; }
+.entrada-container::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 99px; }
+
+.header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.header h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.3rem;
+}
+
+.header p {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.seccion { margin-bottom: 1.1rem; }
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+}
+
+.botones-operadores {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-op {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: transform 0.15s;
+  min-width: 60px;
+}
+
+.btn-op span {
+  font-size: 0.6rem;
+  font-weight: 500;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+
+.btn-op:hover { transform: translateY(-2px); }
+.btn-op.not  { background: #fff0f0; color: #e03e3e; }
+.btn-op.and  { background: #f0f7ff; color: #2563eb; }
+.btn-op.or   { background: #f0fff4; color: #16a34a; }
+.btn-op.par  { background: #fdf4ff; color: #9333ea; }
+
+.botones-vars {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.btn-var {
+  width: 42px;
+  height: 42px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-var:hover { border-color: #6366f1; color: #6366f1; background: #f5f3ff; }
+
+.input-row { display: flex; gap: 0.4rem; }
+
+.input-expresion {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: monospace;
+  color: #1a1a2e;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.input-expresion:focus { border-color: #6366f1; }
+.input-expresion.input-error { border-color: #e03e3e; }
+
+.btn-limpiar {
+  padding: 0 0.9rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-limpiar:hover { border-color: #e03e3e; color: #e03e3e; }
+
+.error-msg {
+  margin-top: 0.4rem;
+  color: #e03e3e;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.tabla-lexica {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.82rem;
+}
+
+.tabla-header {
+  display: grid;
+  grid-template-columns: 70px 80px 100px 1fr;
+  padding: 0.5rem 0.75rem;
+  background: #f9fafb;
+  font-weight: 600;
+  color: #666;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tabla-fila {
+  display: grid;
+  grid-template-columns: 70px 80px 100px 1fr;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.1s;
+}
+
+.tabla-fila:last-child { border-bottom: none; }
+
+.token-valor {
+  font-family: monospace;
+  font-weight: 700;
+}
+
+.token-tipo {
+  font-family: monospace;
+  font-size: 0.78rem;
+}
+
+.tabla-fila.tipo-id     { background: #fefce8; }
+.tabla-fila.tipo-and    { background: #eff6ff; }
+.tabla-fila.tipo-or     { background: #f0fdf4; }
+.tabla-fila.tipo-not    { background: #fff0f0; }
+.tabla-fila.tipo-par    { background: #fdf4ff; }
+
+.ejemplos {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.btn-ejemplo {
+  padding: 0.35rem 0.8rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 20px;
+  background: white;
+  font-family: monospace;
+  font-size: 0.82rem;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-ejemplo:hover { border-color: #6366f1; color: #6366f1; background: #f5f3ff; }
+
+.btn-analizar {
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-analizar:hover:not(:disabled) { opacity: 0.92; }
+.btn-analizar:disabled { opacity: 0.5; cursor: not-allowed; }

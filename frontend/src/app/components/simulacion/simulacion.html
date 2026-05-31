@@ -1,0 +1,80 @@
+<div class="simulacion-container" *ngIf="resultado">
+
+    <div class="sim-header">
+      <h2>Simulación del recorrido</h2>
+      <p>Observa cómo el parser recorre el árbol nodo por nodo</p>
+    </div>
+  
+    <div class="regla-actual">
+      <span class="regla-label">Producción:</span>
+      <span class="regla-texto">
+        {{ reglaActual || 'Presiona iniciar para comenzar' }}
+      </span>
+    </div>
+  
+    <div class="progreso-info">
+      <span class="paso-texto">
+        Paso {{ pasoActual + 1 > 0 ? pasoActual + 1 : 0 }} de {{ nodos.length }}
+      </span>
+      <div class="barra-progreso">
+        <div
+          class="barra-fill"
+          [style.width.%]="nodos.length > 0 ? ((pasoActual + 1) / nodos.length) * 100 : 0"
+        ></div>
+      </div>
+    </div>
+  
+    <div class="controles">
+      <button class="btn-iniciar" (click)="iniciar()" [disabled]="simulando">
+        {{ simulando ? 'Simulando...' : 'Iniciar' }}
+      </button>
+      <button
+        class="btn-paso"
+        (click)="siguientePaso()"
+        [disabled]="simulando || pasoActual >= nodos.length - 1"
+      >
+        Siguiente
+      </button>
+      <button class="btn-todo" (click)="mostrarTodo()">Ver todo</button>
+      <button class="btn-reiniciar" (click)="reiniciar()">Reiniciar</button>
+    </div>
+  
+    <div class="leyenda">
+      <span class="leg-item normal">Sin visitar</span>
+      <span class="leg-item activo">Activo</span>
+      <span class="leg-item visitado">Visitado</span>
+    </div>
+  
+    <div class="svg-wrapper">
+      <svg [attr.width]="svgAncho" [attr.height]="svgAlto">
+  
+        <ng-container *ngFor="let l of lineas">
+          <line
+            [attr.x1]="l.x1"
+            [attr.y1]="l.y1"
+            [attr.x2]="l.x2"
+            [attr.y2]="l.y2"
+            class="linea"
+          />
+        </ng-container>
+  
+        <ng-container *ngFor="let nodo of nodos">
+          <circle
+            [attr.cx]="nodo.x"
+            [attr.cy]="nodo.y"
+            r="22"
+            [class]="'circulo tipo-' + nodo.tipo + ' estado-' + nodo.estado"
+          />
+          <text
+            [attr.x]="nodo.x"
+            [attr.y]="nodo.y"
+            class="nodo-texto"
+            text-anchor="middle"
+            dominant-baseline="central"
+          >{{ nodo.symbol }}</text>
+        </ng-container>
+  
+      </svg>
+    </div>
+  
+  </div>

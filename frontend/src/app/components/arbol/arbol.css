@@ -1,0 +1,134 @@
+.arbol-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.arbol-header h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.2rem;
+}
+
+.arbol-header p { color: #666; font-size: 0.9rem; }
+
+.controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.paso-info {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6366f1;
+  padding: 0 0.25rem;
+}
+
+.btn-anterior, .btn-siguiente {
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: none;
+}
+
+.btn-anterior {
+  background: #f5f3ff;
+  color: #6366f1;
+  border: 2px solid #c4b5fd;
+}
+
+.btn-anterior:hover:not(:disabled) { background: #ede9fe; }
+.btn-anterior:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-siguiente {
+  background: #6366f1;
+  color: white;
+}
+
+.btn-siguiente:hover:not(:disabled) { opacity: 0.9; }
+.btn-siguiente:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-todo {
+  padding: 0.55rem 1rem;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 2px solid #bbf7d0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-todo:hover { background: #dcfce7; }
+
+.btn-reiniciar {
+  padding: 0.55rem 1rem;
+  background: white;
+  color: #888;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-reiniciar:hover { border-color: #e03e3e; color: #e03e3e; }
+
+.leyenda {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.leyenda-item {
+  padding: 0.18rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.leyenda-item.exp      { background: #f5f3ff; color: #6d28d9; }
+.leyenda-item.term     { background: #f0fdf4; color: #15803d; }
+.leyenda-item.factor   { background: #fff7ed; color: #c2410c; }
+.leyenda-item.terminal { background: #fefce8; color: #a16207; }
+.leyenda-item.operador { background: #f1f5f9; color: #475569; }
+
+.svg-wrapper {
+  flex: 1;
+  overflow: auto;
+  border-radius: 12px;
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+}
+
+.linea { stroke: #cbd5e1; stroke-width: 1.5; }
+
+.circulo {
+  stroke-width: 2;
+  animation: aparecer 0.25s ease;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform-origin: center; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.circulo.exp      { fill: #f5f3ff; stroke: #7c3aed; }
+.circulo.term     { fill: #f0fdf4; stroke: #16a34a; }
+.circulo.factor   { fill: #fff7ed; stroke: #ea580c; }
+.circulo.terminal { fill: #fefce8; stroke: #ca8a04; }
+.circulo.operador { fill: #f1f5f9; stroke: #64748b; }
+
+.nodo-texto {
+  font-size: 11px;
+  font-weight: 700;
+  fill: #1a1a2e;
+  pointer-events: none;
+}

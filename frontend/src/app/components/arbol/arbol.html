@@ -1,0 +1,58 @@
+<div class="arbol-container" *ngIf="arbol">
+
+  <div class="arbol-header">
+    <h2>Árbol de derivación</h2>
+    <p>Usa los botones para construir el árbol nodo por nodo</p>
+  </div>
+
+  <div class="controles">
+    <button class="btn-anterior" (click)="anterior()" [disabled]="paso === 0">
+      ← Anterior
+    </button>
+    <span class="paso-info">{{ paso }} / {{ nodos.length }}</span>
+    <button class="btn-siguiente" (click)="siguiente()" [disabled]="paso >= nodos.length">
+      Siguiente →
+    </button>
+    <button class="btn-todo" (click)="mostrarTodo()">Ver todo</button>
+    <button class="btn-reiniciar" (click)="reiniciar()">Reiniciar</button>
+  </div>
+
+  <div class="leyenda">
+    <span class="leyenda-item exp">Exp</span>
+    <span class="leyenda-item term">Term</span>
+    <span class="leyenda-item factor">Factor</span>
+    <span class="leyenda-item terminal">Variable</span>
+    <span class="leyenda-item operador">Operador</span>
+  </div>
+
+  <div class="svg-wrapper">
+    <svg [attr.width]="svgAncho" [attr.height]="svgAlto">
+
+      <ng-container *ngFor="let l of lineas">
+        <line
+          *ngIf="l.visible"
+          [attr.x1]="l.x1" [attr.y1]="l.y1"
+          [attr.x2]="l.x2" [attr.y2]="l.y2"
+          class="linea"
+        />
+      </ng-container>
+
+      <ng-container *ngFor="let nodo of nodos">
+        <g *ngIf="nodo.visible">
+          <circle
+            [attr.cx]="nodo.x" [attr.cy]="nodo.y" r="22"
+            [class]="'circulo ' + nodo.tipo"
+          />
+          <text
+            [attr.x]="nodo.x" [attr.y]="nodo.y"
+            class="nodo-texto"
+            text-anchor="middle"
+            dominant-baseline="central"
+          >{{ nodo.symbol }}</text>
+        </g>
+      </ng-container>
+
+    </svg>
+  </div>
+
+</div>

@@ -1,0 +1,24 @@
+<div class="derivacion-container" *ngIf="resultado">
+
+  <div class="der-header">
+    <h2>Derivación por izquierda</h2>
+    <p>Expresión: <code>{{ resultado.expresion }}</code></p>
+  </div>
+
+  <div class="tokens-row">
+    <span class="token-label">Tokens:</span>
+    <span class="token" *ngFor="let t of resultado.tokens">{{ t }}</span>
+  </div>
+
+  <div class="pasos-lista">
+    <div
+      class="paso"
+      [class]="claseDelPaso(paso)"
+      *ngFor="let paso of resultado.pasos; let i = index"
+    >
+      <span class="paso-num">{{ i + 1 }}</span>
+      <span class="paso-texto">{{ paso }}</span>
+    </div>
+  </div>
+
+</div>
