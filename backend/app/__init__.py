@@ -15,6 +15,11 @@ def create_app():
         Flask: instancia configurada de la aplicación.
     """
     app = Flask(__name__)
-    CORS(app)
+    CORS(app, resources={r"/api/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"],
+        "expose_headers": ["Content-Type"]
+    }})
     app.register_blueprint(grammar_bp, url_prefix="/api")
     return app

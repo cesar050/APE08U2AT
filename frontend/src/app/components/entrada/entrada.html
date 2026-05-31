@@ -82,7 +82,7 @@
     <button
       class="btn-analizar"
       (click)="analizar()"
-      [disabled]="cargando || !!error"
+      [disabled]="cargando"
     >
       <span *ngIf="!cargando">Analizar expresión</span>
       <span *ngIf="cargando">Analizando...</span>

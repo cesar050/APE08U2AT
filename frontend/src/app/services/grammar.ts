@@ -1,8 +1,4 @@
-/**
- * Servicio de comunicación con el backend Flask.
- */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface TokenLexico {
@@ -34,25 +30,44 @@ export class GrammarService {
 
   private apiUrl = 'http://localhost:5000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private zone: NgZone) {}
 
-  /**
-   * Analiza una expresión booleana completa.
-   *
-   * @param expresion - cadena de texto a analizar
-   * @returns Observable con el resultado completo
-   */
-  analizar(expresion: string): Observable<AnalisisResult> {
-    return this.http.post<AnalisisResult>(`${this.apiUrl}/analizar`, { expresion });
+  private post<T>(endpoint: string, body: object): Observable<T> {
+    return new Observable(observer => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `${this.apiUrl}${endpoint}`);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.timeout = 3000;
+      xhr.onload = () => {
+        this.zone.run(() => {
+          const data = JSON.parse(xhr.responseText);
+          if (xhr.status >= 200 && xhr.status < 300) {
+            observer.next(data);
+            observer.complete();
+          } else {
+            observer.error(new Error(data.error || 'Error desconocido.'));
+          }
+        });
+      };
+      xhr.onerror = () => {
+        this.zone.run(() => {
+          observer.error(new Error('No se pudo conectar con el servidor.'));
+        });
+      };
+      xhr.ontimeout = () => {
+        this.zone.run(() => {
+          observer.error(new Error('El servidor tardó demasiado en responder.'));
+        });
+      };
+      xhr.send(JSON.stringify(body));
+    });
   }
 
-  /**
-   * Valida una expresión en tiempo real.
-   *
-   * @param expresion - cadena parcial mientras el usuario escribe
-   * @returns Observable con tabla léxica y posible error
-   */
+  analizar(expresion: string): Observable<AnalisisResult> {
+    return this.post<AnalisisResult>('/analizar', { expresion });
+  }
+
   validar(expresion: string): Observable<ValidacionResult> {
-    return this.http.post<ValidacionResult>(`${this.apiUrl}/validar`, { expresion });
+    return this.post<ValidacionResult>('/validar', { expresion });
   }
 }

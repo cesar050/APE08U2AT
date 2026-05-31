@@ -9,6 +9,16 @@ from app.services.parser import Parser
 grammar_bp = Blueprint("grammar", __name__)
 
 
+@grammar_bp.after_request
+def after_request(response):
+    """
+    Asegura que todas las respuestas tengan el header Content-Type correcto.
+    Esto es necesario para que Angular pueda parsear los errores 400.
+    """
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
+
 @grammar_bp.route("/analizar", methods=["POST"])
 def analizar():
     """
@@ -50,7 +60,9 @@ def analizar():
         })
 
     except (ValueError, SyntaxError) as e:
-        return jsonify({"error": str(e)}), 400
+        response = jsonify({"error": str(e)})
+        response.status_code = 400
+        return response
 
 
 @grammar_bp.route("/validar", methods=["POST"])
